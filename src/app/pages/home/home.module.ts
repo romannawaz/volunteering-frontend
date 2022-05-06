@@ -5,6 +5,9 @@ import { HomeRoutingModule } from './home-routing.module';
 
 import { HomeComponent } from './home.component';
 
+// Shared Components Module
+import { SharedComponentsModule } from 'src/app/components/shared-components.module';
+
 @NgModule({
   declarations: [
     HomeComponent
@@ -12,6 +15,7 @@ import { HomeComponent } from './home.component';
   imports: [
     CommonModule,
     HomeRoutingModule,
+    SharedComponentsModule,
   ],
   bootstrap: [HomeComponent],
 })
