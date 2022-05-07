@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { HttpClientModule } from '@angular/common/http';
+
 // Services Module
 import { ServicesModule } from './services/services.module';
 
@@ -14,6 +16,7 @@ import { ServicesModule } from './services/services.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     ServicesModule,
   ],
   providers: [],
