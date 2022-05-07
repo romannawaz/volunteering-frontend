@@ -1,0 +1,17 @@
+@import "./ui/reset.scss";
+
+@import "./themes/light.scss";
+@import "./themes/dark.scss";
+
+html,
+body {
+    min-height: 100%;
+
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
