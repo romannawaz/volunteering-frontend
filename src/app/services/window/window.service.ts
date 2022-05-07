@@ -9,5 +9,7 @@ export class WindowService implements WindowServiceInterface {
 
   constructor() { }
 
-
+  endpointApi(): string {
+    return window.AppSettings.services.api;
+  }
 }
