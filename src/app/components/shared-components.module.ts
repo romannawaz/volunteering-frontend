@@ -3,9 +3,11 @@ import { CommonModule } from '@angular/common';
 
 // Components
 import { CreateProductFormComponent } from './create-product-form/create-product-form.component';
+import { HeaderComponent } from './header/header.component';
 
 const components = [
   CreateProductFormComponent,
+  HeaderComponent,
 ]
 
 @NgModule({
