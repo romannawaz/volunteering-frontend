@@ -1,1 +1,13 @@
-<p>create-product-form works!</p>
+<form class="form" [formGroup]="createProductForm" (ngSubmit)="createProduct()">
+    <div class="form-field">
+        <input type="text" class="form__element" formControlName="title" placeholder="Title" required />
+    </div>
+    <div class="form-field">
+        <textarea type="text" class="form__element" formControlName="description" placeholder="Description"></textarea>
+    </div>
+    <div class="form-field">
+        <input type="text" class="form__element" formControlName="price" placeholder="Price" required />
+    </div>
+
+    <button type="submit" class="form__element">Submit</button>
+</form>

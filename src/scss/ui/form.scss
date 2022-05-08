@@ -1,0 +1,34 @@
+form.form {
+    > * {
+        width: 100%;
+
+        &:not(:last-child) {
+            margin-bottom: 15px;
+        }
+    }
+
+    textarea.form__element {
+        resize: none;
+
+        margin-bottom: -4px;
+
+        min-height: 79px;
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+    }
+
+    .form__element {
+        width: 100%;
+        padding: 10px 20px;
+
+        outline: none;
+        border: none;
+        border-radius: 5px;
+    }
+
+    button[type="submit"].form__element {
+        cursor: pointer;
+
+        background-color: var(--primary);
+        color: var(--text-color);
+    }
+}
