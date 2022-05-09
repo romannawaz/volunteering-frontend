@@ -1,0 +1,26 @@
+.product-preview {
+    width: 100%;
+    
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+
+    &__image {
+        height: 120px;
+        width: 100%;
+
+        background-color: #dbdbdb;
+    }
+
+    &__content {
+        padding: 10px;
+    }
+
+    &__title {
+        margin-bottom: 5px;
+    }
+
+    &__price {
+        text-align: right;
+    }
+}
