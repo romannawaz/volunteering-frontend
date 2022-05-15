@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { HomeRoutingModule } from './home-routing.module';
 
@@ -14,6 +15,7 @@ import { SharedComponentsModule } from 'src/app/components/shared-components.mod
   ],
   imports: [
     CommonModule,
+    RouterModule,
     HomeRoutingModule,
     SharedComponentsModule,
   ],
