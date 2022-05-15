@@ -1,7 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 
-import { ProductsServiceInterface } from 'src/app/services/products/produts.service.interface';
+import { ProductModel } from 'src/app/services/products/models/product.model';
+
+import { Product, ProductsServiceInterface } from 'src/app/services/products/produts.service.interface';
 
 @Component({
   selector: 'create-product-form',
@@ -34,7 +36,11 @@ export class CreateProductFormComponent implements OnInit {
   public createProduct(): void {
     if (!this.createProductForm.valid) return;
 
-    this.productsService.createProduct(this.createProductForm.value)
+    const { title, description, price } = this.createProductForm.value;
+
+    const newProduct: Product = new ProductModel(title, description, price);
+
+    this.productsService.createProduct(newProduct)
       .subscribe();
 
     this.createProductForm.reset();
