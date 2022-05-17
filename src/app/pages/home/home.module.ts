@@ -6,12 +6,15 @@ import { HomeRoutingModule } from './home-routing.module';
 
 import { HomeComponent } from './home.component';
 
+import { ProductsListComponent } from './products-list/products-list.component';
+
 // Shared Components Module
 import { SharedComponentsModule } from 'src/app/components/shared-components.module';
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
+    ProductsListComponent,
   ],
   imports: [
     CommonModule,
