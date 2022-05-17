@@ -1,5 +1,6 @@
 <header class="header">
   <h1 class="header_title">Title</h1>
 
-  <button type="button" class="sign-in-button" (click)="toSignUpPage()">Sign Up</button>
+  <button type="button" *ngIf="!(authService.isLoggedObservable | async)" class="sign-in-button"
+    (click)="toSignUpPage()">Sign Up</button>
 </header>
