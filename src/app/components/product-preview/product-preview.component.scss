@@ -20,7 +20,12 @@
         margin-bottom: 5px;
     }
 
-    &__price {
+    &__description {
+        margin-bottom: 20px;
+    }
+
+    &__price,
+    &__user_name {
         text-align: right;
     }
 }
