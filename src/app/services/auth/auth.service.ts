@@ -26,7 +26,13 @@ export class AuthService implements AuthServiceInterface {
     private http: HttpClient,
   ) {
     const isLogged: boolean = localStorage.getItem('user') ? true : false;
-   
+
+    if (isLogged) {
+      this.isLogged = isLogged;
+    }
+  }
+
+  private set isLogged(isLogged: boolean) {
     this._isLoggedSubject.next(isLogged);
   }
 
@@ -46,7 +52,13 @@ export class AuthService implements AuthServiceInterface {
   public saveLoggedUser(user: User): void {
     localStorage.setItem(this.localStorageKeys.user, JSON.stringify(user));
 
-    this._isLoggedSubject.next(true);
+    this.isLogged = true;
+  }
+
+  public logOut(): void {
+    localStorage.removeItem(this.localStorageKeys.user);
+
+    this.isLogged = false;
   }
 
 }

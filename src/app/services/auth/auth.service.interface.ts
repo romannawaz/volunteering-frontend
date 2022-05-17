@@ -8,4 +8,6 @@ export interface AuthServiceInterface {
     signIn(user: { email: string, password: string }): Observable<User | null>;
     createUser(user: UserRegistrationData): Observable<User>;
     saveLoggedUser(user: User): void;
+
+    logOut(): void;
 }
