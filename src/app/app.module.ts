@@ -9,6 +9,9 @@ import { HttpClientModule } from '@angular/common/http';
 // Services Module
 import { ServicesModule } from './services/services.module';
 
+// Shared Components Module
+import { SharedComponentsModule } from './components/shared-components.module';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -18,6 +21,7 @@ import { ServicesModule } from './services/services.module';
     AppRoutingModule,
     HttpClientModule,
     ServicesModule,
+    SharedComponentsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
