@@ -22,4 +22,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('/auth');
   }
 
+  public toUserCabinet(): void {
+    this.router.navigateByUrl('/user-cabinet');
+  }
+
 }

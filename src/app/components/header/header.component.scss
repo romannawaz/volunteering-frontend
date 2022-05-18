@@ -8,6 +8,12 @@ header.header {
     background-color: var(--header-bg-color);
 }
 
+.header__buttons {
+    > *:not(:last-of-type) {
+        margin-right: 10px;
+    }
+}
+
 .auth-button {
     padding: 10px 15px;
 
