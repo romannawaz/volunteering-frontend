@@ -8,6 +8,10 @@ header.header {
     background-color: var(--header-bg-color);
 }
 
+.header__title {
+    cursor: pointer;
+}
+
 .header__buttons {
     > *:not(:last-of-type) {
         margin-right: 10px;

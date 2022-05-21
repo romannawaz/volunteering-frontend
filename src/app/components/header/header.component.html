@@ -1,5 +1,5 @@
 <header class="header">
-  <h1 class="header_title">Title</h1>
+  <h1 class="header__title" [routerLink]="['home']">Volunteering</h1>
 
   <div class="header__buttons">
     <button type="button" *ngIf="!(authService.isLoggedObservable | async)" class="auth-button"
