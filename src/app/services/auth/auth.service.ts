@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { WindowServiceInterface } from '../window/window.service.interface';
 import { AuthServiceInterface } from './auth.service.interface';
+
 import { User, UserRegistrationData } from './user.interface';
 
 @Injectable({
@@ -23,6 +25,7 @@ export class AuthService implements AuthServiceInterface {
   constructor(
     @Inject('WindowServiceInterface')
     private windowService: WindowServiceInterface,
+    private route: Router,
     private http: HttpClient,
   ) {
     const isLogged: boolean = localStorage.getItem('user') ? true : false;
@@ -44,6 +47,19 @@ export class AuthService implements AuthServiceInterface {
       );
   }
 
+  public getCurrentUser(): User {
+    const localStorageUserData: string | null = localStorage.getItem('user');
+
+    if (localStorageUserData) {
+      return JSON.parse(localStorageUserData);
+    }
+    else {
+      this.logOut();
+
+      return {} as User;
+    }
+  }
+
   public createUser(user: UserRegistrationData): Observable<User> {
     return this.http
       .post<User>(`${this.windowService.endpointApi()}/auth/sign-up`, user);
@@ -57,6 +73,8 @@ export class AuthService implements AuthServiceInterface {
 
   public logOut(): void {
     localStorage.removeItem(this.localStorageKeys.user);
+
+    this.route.navigateByUrl('home');
 
     this.isLogged = false;
   }
