@@ -1,0 +1,28 @@
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.navigation {
+    width: 15%;
+
+    &__item {
+        display: block;
+
+        padding: 10px;
+
+        color: var(--text-color);
+        text-decoration: none;
+
+        border-radius: 3px;
+
+        &.active {
+            background-color: darken(#4e4e4e, 5%);
+        }
+    }
+}
+
+.page {
+    width: 85%;
+}

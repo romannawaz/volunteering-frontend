@@ -1,0 +1,9 @@
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 25px;
+
+    > .form__wrapper {
+        width: 50%;
+    }
+}

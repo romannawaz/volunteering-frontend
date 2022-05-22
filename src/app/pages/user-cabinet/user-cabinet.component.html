@@ -1,3 +1,12 @@
 <div class="container">
-    <p>user-cabinet works!</p>
+    <div class="wrapper">
+        <nav class="navigation">
+            <a [routerLink]="['user-profile']" routerLinkActive="active" class="navigation__item">Profile</a>
+            <a [routerLink]="['products']" routerLinkActive="active" class="navigation__item">Products</a>
+        </nav>
+
+        <div class="page">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
 </div>
