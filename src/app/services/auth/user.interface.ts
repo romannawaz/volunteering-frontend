@@ -1,3 +1,8 @@
+export interface UserLoginData {
+    email: string;
+    password: string;
+}
+
 export interface UserRegistrationData {
     first_name: string;
     last_name: string;

@@ -1,14 +1,18 @@
 import { Observable } from "rxjs";
 
-import { User, UserRegistrationData } from "./user.interface";
+import { User, UserLoginData, UserRegistrationData } from "./user.interface";
 
 export interface AuthServiceInterface {
-    isLoggedObservable: Observable<boolean>;
+    readonly userObservable: Observable<User | null>;
 
-    signIn(user: { email: string, password: string }): Observable<User | null>;
-    getCurrentUser(): User;
-    createUser(user: UserRegistrationData): Observable<User>;
-    saveLoggedUser(user: User): void;
+    get user(): User | null;
+
+    getCurrentUserPassword(): Observable<string>;
+    signIn(user: UserLoginData): Observable<string | null>;
+    createUser(user: UserRegistrationData): Observable<string>;
+    updateUser(userId: string, user: User): Observable<string>;
+    changePassword(userId: string, password: string): Observable<string>;
+    saveToken(token: string): void;
 
     logOut(): void;
 }

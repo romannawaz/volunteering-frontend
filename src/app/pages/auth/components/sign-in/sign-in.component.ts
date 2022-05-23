@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
+// Services
 import { AuthServiceInterface } from 'src/app/services/auth/auth.service.interface';
-import { User } from 'src/app/services/auth/user.interface';
 
 @Component({
   selector: 'app-sign-in',
@@ -45,9 +45,9 @@ export class SignInComponent implements OnInit, OnDestroy {
 
     this._subscription.add(
       this.authService.signIn(data)
-        .subscribe((user: User | null) => {
+        .subscribe((user: string | null) => {
           if (user) {
-            this.authService.saveLoggedUser(user);
+            this.authService.saveToken(user);
 
             this.router.navigateByUrl('/home');
           }

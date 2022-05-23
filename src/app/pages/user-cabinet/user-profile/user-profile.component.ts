@@ -2,11 +2,13 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
-import { Subscription } from 'rxjs';
+import { of, Subscription } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
-import { WindowServiceInterface } from 'src/app/services/window/window.service.interface';
+// Services
 import { AuthServiceInterface } from 'src/app/services/auth/auth.service.interface';
 
+// Interfaces
 import { User } from 'src/app/services/auth/user.interface';
 
 @Component({
@@ -21,13 +23,11 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   public userForm!: FormGroup;
   public changePasswordForm!: FormGroup;
 
-  public userData!: User;
+  private userId!: string;
 
   private updateUserUrl!: string;
 
   constructor(
-    @Inject('WindowServiceInterface')
-    private windowService: WindowServiceInterface,
     @Inject('AuthServiceInterface')
     private authService: AuthServiceInterface,
     private formBuilder: FormBuilder,
@@ -35,14 +35,18 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.userData = this.authService.getCurrentUser();
-    this.updateUserUrl = `${this.windowService.endpointApi()}/auth/update/${this.userData._id}`;
-
     this.userForm = this._createUserForm();
     this.changePasswordForm = this._createChangePasswordForm();
 
-    const { first_name, last_name, email } = this.userData;
-    this.userForm.setValue({ first_name, last_name, email });
+    this.authService.userObservable.
+      subscribe((user: User | null) => {
+        if (user) {
+          const { first_name, last_name, email } = user;
+          this.userForm.setValue({ first_name: first_name, last_name: last_name, email: email });
+
+          this.userId = user._id;
+        }
+      });
   }
 
   ngOnDestroy(): void {
@@ -53,35 +57,40 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     if (!this.userForm.valid) return;
 
     this._subscription.add(
-      this.http
-        .put<User>(
-          this.updateUserUrl,
+      this.authService
+        .updateUser(
+          this.userId,
           this.userForm.value
         )
-        .subscribe((user: User) => {
-          this.authService.saveLoggedUser(user);
+        .subscribe((token: string) => {
+          this.authService.saveToken(token);
         })
     );
   }
 
   public updatePassword(): void {
     if (!this.changePasswordForm.valid) return;
-
-    const password: string = JSON.parse(localStorage.getItem('user')!).password;
-
-    if (password != this.changePasswordForm.controls['current_password'].value) return;
     if (this.changePasswordForm.controls['password'].value != this.changePasswordForm.controls['repeated_password'].value) return;
 
-    this._subscription.add(
-      this.http
-        .put<User>(
-          this.updateUserUrl,
-          { password: this.changePasswordForm.controls['password'].value }
-        )
-        .subscribe()
-    );
+    this.authService.getCurrentUserPassword()
+      .pipe(
+        switchMap(currentPassword => {
+          if (currentPassword != this.changePasswordForm.controls['current_password'].value) return of(null);
 
-    this.changePasswordForm.reset();
+          return this.authService
+            .changePassword(
+              this.userId,
+              this.changePasswordForm.controls['password'].value
+            )
+        })
+      )
+      .subscribe((token: string | null) => {
+        if (token) {
+          this.authService.saveToken(token);
+        }
+
+        this.changePasswordForm.reset();
+      });
   }
 
   private _createUserForm(): FormGroup {

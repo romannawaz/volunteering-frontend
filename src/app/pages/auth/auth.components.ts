@@ -22,7 +22,7 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._subscription.add(
-      this.authService.isLoggedObservable
+      this.authService.userObservable
         .subscribe(isLogged => {
           if (isLogged) {
             this.router.navigateByUrl('/home');

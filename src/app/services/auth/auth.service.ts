@@ -3,24 +3,33 @@ import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
+import jwt_decode from 'jwt-decode';
+
+// Services
 import { WindowServiceInterface } from '../window/window.service.interface';
 import { AuthServiceInterface } from './auth.service.interface';
 
-import { User, UserRegistrationData } from './user.interface';
+// Interfaces
+import { User, UserLoginData, UserRegistrationData } from './user.interface';
+import { TokenData } from './token.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService implements AuthServiceInterface {
 
-  private _isLoggedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public isLoggedObservable: Observable<boolean> = this._isLoggedSubject.asObservable();
+  private _userSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
+  public readonly userObservable: Observable<User | null> = this._userSubject.asObservable();
+
+  private readonly getUserEndpoint: string = `${this.windowService.endpointApi()}/auth/user`;
+  private readonly signInEndpoint: string = `${this.windowService.endpointApi()}/auth/sign-in`;
+  private readonly signUpEndpoint: string = `${this.windowService.endpointApi()}/auth/sign-up`;
 
   private readonly localStorageKeys: { [key: string]: string } = {
     user: 'user',
-  }
+  };
 
   constructor(
     @Inject('WindowServiceInterface')
@@ -28,47 +37,75 @@ export class AuthService implements AuthServiceInterface {
     private route: Router,
     private http: HttpClient,
   ) {
-    const isLogged: boolean = localStorage.getItem('user') ? true : false;
-
-    if (isLogged) {
-      this.isLogged = isLogged;
-    }
+    this._updateUserToken();
   }
 
-  private set isLogged(isLogged: boolean) {
-    this._isLoggedSubject.next(isLogged);
+  public get user(): User | null {
+    return this._userSubject.getValue();
   }
 
-  public signIn(user: { email: string, password: string }): Observable<User | null> {
+  private set user(user: User | null) {
+    this._userSubject.next(user);
+  }
+
+  public getCurrentUserPassword(): Observable<string> {
     return this.http
-      .post<User>(`${this.windowService.endpointApi()}/auth/sign-in`, user)
+      .get<{ password: string }>(
+        `${this.getUserEndpoint}/${this.user?._id}`
+      )
       .pipe(
-        take(1)
+        map(({ password }) => password)
       );
   }
 
-  public getCurrentUser(): User {
-    const localStorageUserData: string | null = localStorage.getItem('user');
-
-    if (localStorageUserData) {
-      return JSON.parse(localStorageUserData);
-    }
-    else {
-      this.logOut();
-
-      return {} as User;
-    }
+  public signIn(user: UserLoginData): Observable<string | null> {
+    return this.modifyObservable(
+      this.http
+        .post<{ access_token: string }>(
+          this.signInEndpoint,
+          user
+        )
+    );
   }
 
-  public createUser(user: UserRegistrationData): Observable<User> {
-    return this.http
-      .post<User>(`${this.windowService.endpointApi()}/auth/sign-up`, user);
+  public createUser(user: UserRegistrationData): Observable<string> {
+    return this.modifyObservable(
+      this.http
+        .post<string>(
+          this.signUpEndpoint,
+          user
+        )
+    );
   };
 
-  public saveLoggedUser(user: User): void {
-    localStorage.setItem(this.localStorageKeys.user, JSON.stringify(user));
+  public updateUser(userId: string, user: User): Observable<string> {
+    const updateUserUrl: string = `${this.windowService.endpointApi()}/auth/update/${userId}`;
 
-    this.isLogged = true;
+    return this.modifyObservable(
+      this.http
+        .put<{ access_token: string }>(
+          updateUserUrl,
+          user
+        )
+    );
+  }
+
+  public changePassword(userId: string, password: string): Observable<string> {
+    const updateUserUrl: string = `${this.windowService.endpointApi()}/auth/update/${userId}`;
+
+    return this.modifyObservable(
+      this.http
+        .put<User>(
+          updateUserUrl,
+          { password }
+        )
+    );
+  }
+
+  public saveToken(token: string): void {
+    localStorage.setItem(this.localStorageKeys.user, JSON.stringify(token));
+
+    this._updateUserToken();
   }
 
   public logOut(): void {
@@ -76,7 +113,27 @@ export class AuthService implements AuthServiceInterface {
 
     this.route.navigateByUrl('home');
 
-    this.isLogged = false;
+    this.user = null;
+  }
+
+  private modifyObservable(observable: Observable<any>): Observable<any> {
+    return observable.pipe(
+      take(1),
+      map((tokenObj: { access_token: string }) => tokenObj.access_token),
+    );
+  }
+
+  private _updateUserToken(): void {
+    const userToken: string | null = localStorage.getItem('user');
+
+    if (userToken) {
+      const decodedToken: TokenData = jwt_decode(userToken);
+
+      this.user = decodedToken._doc;
+    }
+    else {
+      this.logOut();
+    }
   }
 
 }

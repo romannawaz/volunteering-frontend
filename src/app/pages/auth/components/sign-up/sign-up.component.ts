@@ -2,9 +2,11 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
+// Services
 import { AuthServiceInterface } from 'src/app/services/auth/auth.service.interface';
 
-import { User, UserRegistrationData } from 'src/app/services/auth/user.interface';
+// Interfaces
+import { UserRegistrationData } from 'src/app/services/auth/user.interface';
 
 @Component({
   selector: 'app-sign-up',
@@ -38,8 +40,8 @@ export class SignUpComponent implements OnInit {
     const newUser: UserRegistrationData = this.singUpForm.value;
 
     this.authService.createUser(newUser)
-      .subscribe((user: User) => {
-        this.authService.saveLoggedUser(user);
+      .subscribe((token: string) => {
+        this.authService.saveToken(token);
 
         this.router.navigateByUrl('/home');
       });
