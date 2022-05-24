@@ -4,9 +4,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { Product, ProductsServiceInterface } from './produts.service.interface';
-
+// Services
+import { ProductsServiceInterface } from './products.service.interface';
 import { WindowServiceInterface } from '../window/window.service.interface';
+
+// Interfaces
+import { Product } from './product.interface';
 
 @Injectable({
   providedIn: 'root'

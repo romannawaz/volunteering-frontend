@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Product } from 'src/app/services/products/produts.service.interface';
+
+// Interfaces
+import { Product } from 'src/app/services/products/product.interface';
 
 @Component({
   selector: 'product-preview',
