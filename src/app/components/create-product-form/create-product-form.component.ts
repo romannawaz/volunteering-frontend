@@ -3,7 +3,12 @@ import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 
 import { ProductModel } from 'src/app/services/products/models/product.model';
 
-import { Product, ProductsServiceInterface } from 'src/app/services/products/produts.service.interface';
+// Services
+import { AuthServiceInterface } from 'src/app/services/auth/auth.service.interface';
+import { ProductsServiceInterface } from 'src/app/services/products/products.service.interface';
+
+// Interfaces
+import { Product } from 'src/app/services/products/product.interface';
 
 @Component({
   selector: 'create-product-form',
@@ -19,6 +24,8 @@ export class CreateProductFormComponent implements OnInit {
   constructor(
     @Inject('ProductsServiceInterface')
     private productsService: ProductsServiceInterface,
+    @Inject('AuthServiceInterface')
+    private authService: AuthServiceInterface,
     private formBuilder: FormBuilder,
   ) { }
 
@@ -38,7 +45,7 @@ export class CreateProductFormComponent implements OnInit {
 
     const { title, description, price } = this.createProductForm.value;
 
-    const newProduct: Product = new ProductModel(title, description, price);
+    const newProduct: Product = new ProductModel(title, description, price, this.authService.user!);
 
     this.productsService.createProduct(newProduct)
       .subscribe();
