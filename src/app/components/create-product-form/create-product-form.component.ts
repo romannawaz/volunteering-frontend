@@ -45,7 +45,7 @@ export class CreateProductFormComponent implements OnInit {
 
     const { title, description, price } = this.createProductForm.value;
 
-    const newProduct: Product = new ProductModel(title, description, price, this.authService.user!);
+    const newProduct: Product = new ProductModel(title, description, price, this.authService.user!._id);
 
     this.productsService.createProduct(newProduct)
       .subscribe();

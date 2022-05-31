@@ -51,10 +51,17 @@ export class AuthService implements AuthServiceInterface {
   public getCurrentUserPassword(): Observable<string> {
     return this.http
       .get<{ password: string }>(
-        `${this.getUserEndpoint}/${this.user?._id}`
+        `${this.getUserEndpoint}/password/${this.user?._id}`
       )
       .pipe(
         map(({ password }) => password)
+      );
+  }
+
+  public getUserById(id: string): Observable<User> {
+    return this.http
+      .get<User>(
+        `${this.getUserEndpoint}/${id}`
       );
   }
 

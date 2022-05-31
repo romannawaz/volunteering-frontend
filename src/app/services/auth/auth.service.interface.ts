@@ -8,6 +8,7 @@ export interface AuthServiceInterface {
     get user(): User | null;
 
     getCurrentUserPassword(): Observable<string>;
+    getUserById(id: string): Observable<User>;
     signIn(user: UserLoginData): Observable<string | null>;
     createUser(user: UserRegistrationData): Observable<string>;
     updateUser(userId: string, user: User): Observable<string>;
