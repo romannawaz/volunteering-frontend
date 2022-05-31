@@ -17,8 +17,14 @@ const routes: Routes = [
       .then(module => module.AuthModule),
   },
   {
-    path: 'user-cabinet', loadChildren: () => import('./pages/user-cabinet/user-cabinet.module'
-    ).then(module => module.UserCabinetModule),
+    path: 'user-cabinet',
+    loadChildren: () => import('./pages/user-cabinet/user-cabinet.module')
+      .then(module => module.UserCabinetModule),
+  },
+  {
+    path: 'product/:id',
+    loadChildren: () => import('./pages/product/product.module')
+      .then(module => module.ProductModule),
   },
   {
     path: '**',

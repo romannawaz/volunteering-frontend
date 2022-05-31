@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="product" *ngIf="isReady">
+        <div class="product__content">
+            <div class="product__img"></div>
+            <div class="product__title">
+                {{ product.title }}
+            </div>
+            <div class="product__description">
+                {{ product.description }}
+            </div>
+            <div class="product__price">
+                {{ product.price }}₴
+            </div>
+        </div>
+        <div class="product__user_info">
+            <div class="product__user_name">
+                {{ user.first_name }} {{ user.last_name }}
+            </div>
+            <div class="product__user_contacts">
+                Contacts:
+                <div class="contact">
+                    {{ user.email }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
