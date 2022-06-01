@@ -30,6 +30,10 @@ export class ProductsService implements ProductsServiceInterface {
     return this.http.get<Product>(`${this.windowService.endpointApi()}/products/${id}`);
   }
 
+  public getProductsByUserId(user_id: string): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.windowService.endpointApi()}/products/user/${user_id}`);
+  }
+
   public createProduct(product: Product): Observable<Product> {
     return this.http
       .post<Product>(`${this.windowService.endpointApi()}/products`, product)
