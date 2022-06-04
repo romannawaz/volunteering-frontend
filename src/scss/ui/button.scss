@@ -1,0 +1,20 @@
+.button {
+    cursor: pointer;
+    
+    width: 100%;
+    padding: 10px 20px;
+
+    outline: none;
+    border: none;
+    border-radius: 5px;
+
+    color: #fff;
+
+    &.color-warning {
+        background-color: var(--warning-color);
+    }
+
+    &.color-danger{
+        background-color: var(--error-color);
+    }
+}
