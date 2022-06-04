@@ -1,1 +1,26 @@
-<create-product-form></create-product-form>
+<div class="wrapper">
+    <create-product-form [editableProduct]="editableProduct"></create-product-form>
+
+    <div class="table__wrapper">
+        <table *ngIf="(productsService.$currentUsersProducts | async)?.length">
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <tr *ngFor="let product of productsService.$currentUsersProducts | async">
+                <td>{{ product.title }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.price }}</td>
+                <td>
+                    <button type="button" class="button color-warning" (click)="editProduct(product)">Edit</button>
+                </td>
+                <td>
+                    <button type="button" class="button color-danger" (click)="deleteProduct(product)">Delete</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

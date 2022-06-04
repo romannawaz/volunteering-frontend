@@ -1,0 +1,23 @@
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.table__wrapper,
+table {
+    width: 100%;
+}
+
+table {
+    background-color: #646464;
+
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 10px 15px;
+
+    border: 1px solid black;
+}
