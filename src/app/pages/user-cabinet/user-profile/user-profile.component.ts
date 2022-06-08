@@ -1,6 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 
 import { of, Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -25,13 +24,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   private userId!: string;
 
-  private updateUserUrl!: string;
-
   constructor(
     @Inject('AuthServiceInterface')
     private authService: AuthServiceInterface,
     private formBuilder: FormBuilder,
-    private http: HttpClient,
   ) { }
 
   ngOnInit(): void {
@@ -42,7 +38,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       subscribe((user: User | null) => {
         if (user) {
           const { first_name, last_name, email } = user;
-          this.userForm.setValue({ first_name: first_name, last_name: last_name, email: email });
+          this.userForm.setValue({ first_name, last_name, email });
 
           this.userId = user._id;
         }
