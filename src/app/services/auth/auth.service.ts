@@ -66,7 +66,7 @@ export class AuthService implements AuthServiceInterface {
   }
 
   public signIn(user: UserLoginData): Observable<string | null> {
-    return this.modifyObservable(
+    return this._modifyObservable(
       this.http
         .post<{ access_token: string }>(
           this.signInEndpoint,
@@ -76,7 +76,7 @@ export class AuthService implements AuthServiceInterface {
   }
 
   public createUser(user: UserRegistrationData): Observable<string> {
-    return this.modifyObservable(
+    return this._modifyObservable(
       this.http
         .post<string>(
           this.signUpEndpoint,
@@ -88,7 +88,7 @@ export class AuthService implements AuthServiceInterface {
   public updateUser(userId: string, user: User): Observable<string> {
     const updateUserUrl: string = `${this.windowService.endpointApi()}/auth/update/${userId}`;
 
-    return this.modifyObservable(
+    return this._modifyObservable(
       this.http
         .put<{ access_token: string }>(
           updateUserUrl,
@@ -100,7 +100,7 @@ export class AuthService implements AuthServiceInterface {
   public changePassword(userId: string, password: string): Observable<string> {
     const updateUserUrl: string = `${this.windowService.endpointApi()}/auth/update/${userId}`;
 
-    return this.modifyObservable(
+    return this._modifyObservable(
       this.http
         .put<User>(
           updateUserUrl,
@@ -123,7 +123,7 @@ export class AuthService implements AuthServiceInterface {
     this.user = null;
   }
 
-  private modifyObservable(observable: Observable<any>): Observable<any> {
+  private _modifyObservable(observable: Observable<any>): Observable<any> {
     return observable.pipe(
       take(1),
       map((tokenObj: { access_token: string }) => tokenObj.access_token),
