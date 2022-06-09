@@ -32,8 +32,19 @@
     margin: 10px 0;
 }
 
-.product__price{
+.product__price {
     text-align: right;
 
     font-size: 1.7em;
+}
+
+.contacts_wrapper {
+    margin-left: 5px;
+    margin-top: 10px;
+}
+
+.contact {
+    &:not(:first-of-type) {
+        margin-top: 6px;
+    }
 }

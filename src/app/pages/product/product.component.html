@@ -18,8 +18,13 @@
             </div>
             <div class="product__user_contacts">
                 Contacts:
-                <div class="contact">
-                    {{ user.email }}
+                <div class="contacts_wrapper">
+                    <div class="contact">
+                        {{ user.email }}
+                    </div>
+                    <div class="contact" *ngFor="let contact of user.contacts">
+                        {{ contact }}
+                    </div>
                 </div>
             </div>
         </div>
