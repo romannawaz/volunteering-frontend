@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 import { of, Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -21,6 +21,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   public userForm!: FormGroup;
   public changePasswordForm!: FormGroup;
+  public contactsForm!: FormGroup;
 
   private userId!: string;
 
@@ -33,12 +34,15 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.userForm = this._createUserForm();
     this.changePasswordForm = this._createChangePasswordForm();
+    this.contactsForm = this._createContactsForm();
 
     this.authService.userObservable.
       subscribe((user: User | null) => {
         if (user) {
-          const { first_name, last_name, email } = user;
+          const { first_name, last_name, email, contacts } = user;
           this.userForm.setValue({ first_name, last_name, email });
+
+          this._initContactsForm(contacts);
 
           this.userId = user._id;
         }
@@ -47,6 +51,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._subscription.unsubscribe();
+  }
+
+  get contacts(): FormArray {
+    return this.contactsForm.controls['contacts'] as FormArray;
   }
 
   public updateUser(): void {
@@ -89,6 +97,41 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       });
   }
 
+  public getContactFieldByIndex(index: number): FormControl {
+    return this.contacts.controls[index] as FormControl;
+  }
+
+  public addNewContactField(value?: string): void {
+    const contactsControls: AbstractControl[] = this.contacts.controls;
+
+    if (!contactsControls[contactsControls.length - 1].value) {
+      if (value) {
+        contactsControls[contactsControls.length - 1].patchValue(value);
+      };
+
+      return;
+    };
+
+    this.contacts.push(this.formBuilder.control(value || null));
+  }
+
+  public updateContacts(): void {
+    const { contacts } = this.contactsForm.value;
+
+    this.authService.updateContacts(this.userId, contacts)
+      .subscribe((token: string) => {
+        this.authService.saveToken(token);
+      });
+  }
+
+  private _initContactsForm(contacts: string[]): void {
+    contacts.forEach((contact: string, index: number) => {
+      if (!(this.contacts.controls[index]?.value == contact)) {
+        this.addNewContactField(contact);
+      }
+    })
+  }
+
   private _createUserForm(): FormGroup {
     return this.formBuilder.group({
       first_name: [''],
@@ -102,6 +145,14 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       current_password: [''],
       password: [''],
       repeated_password: [''],
+    });
+  }
+
+  private _createContactsForm(): FormGroup {
+    return this.formBuilder.group({
+      contacts: this.formBuilder.array([
+        this.formBuilder.control(''),
+      ])
     });
   }
 

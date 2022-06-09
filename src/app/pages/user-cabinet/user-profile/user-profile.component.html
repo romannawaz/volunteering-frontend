@@ -40,4 +40,20 @@
             <button type="submit" class="form__element" *ngIf="changePasswordForm.touched">Submit</button>
         </form>
     </div>
+
+    <div class="form__wrapper">
+        <h2 class="form__label">Contacts</h2>
+
+        <form class="form contacts_form" [formGroup]="contactsForm" (ngSubmit)="updateContacts()">
+            <ng-container formArrayName="contacts">
+                <div class="form-field" *ngFor="let contact of contacts.controls; index as i">
+                    <input type="text" class="form__element" [formControl]="getContactFieldByIndex(i)"
+                        placeholder="Contact" required>
+                </div>
+            </ng-container>
+
+            <button type="button" class="form__element" (click)="addNewContactField()">Add new contact</button>
+            <button type="submit" class="form__element" *ngIf="contactsForm.touched">Submit</button>
+        </form>
+    </div>
 </div>

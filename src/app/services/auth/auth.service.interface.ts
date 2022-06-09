@@ -13,6 +13,9 @@ export interface AuthServiceInterface {
     createUser(user: UserRegistrationData): Observable<string>;
     updateUser(userId: string, user: User): Observable<string>;
     changePassword(userId: string, password: string): Observable<string>;
+
+    updateContacts(userId: string, contacts: string[]): any;
+
     saveToken(token: string): void;
 
     logOut(): void;

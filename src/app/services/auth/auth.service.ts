@@ -109,6 +109,13 @@ export class AuthService implements AuthServiceInterface {
     );
   }
 
+  public updateContacts(userId: string, contacts: string[]) {
+    const updateUserContactsUrl: string = `${this.windowService.endpointApi()}/auth/contacts/${userId}`;
+
+    return this.http
+      .post(updateUserContactsUrl, { contacts });
+  }
+
   public saveToken(token: string): void {
     localStorage.setItem(this.localStorageKeys.user, JSON.stringify(token));
 
