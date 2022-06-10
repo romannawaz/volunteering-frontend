@@ -116,9 +116,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   public updateContacts(): void {
-    const { contacts } = this.contactsForm.value;
+    const { contacts }: { contacts: string[] } = this.contactsForm.value;
+    const filteredContacts = contacts.filter((value: string) => value);
 
-    this.authService.updateContacts(this.userId, contacts)
+    this.authService.updateContacts(this.userId, filteredContacts)
       .subscribe((token: string) => {
         this.authService.saveToken(token);
       });
