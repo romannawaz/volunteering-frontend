@@ -2,10 +2,11 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { first, take } from 'rxjs/operators';
 
 // Interfaces
 import { Product } from './product.interface';
+import { Category } from './category.interface';
 
 // Services
 import { ProductsServiceInterface } from './products.service.interface';
@@ -19,6 +20,7 @@ export class ProductsService implements ProductsServiceInterface {
   public readonly $currentUsersProducts: Observable<Product[]> = this._currentUsersProducts.asObservable();
 
   private productsEndpoint: string = `${this.windowService.endpointApi()}/products`;
+  private categoriesEndpoint: string = `${this.windowService.endpointApi()}/categories`;
 
   constructor(
     @Inject('WindowServiceInterface')
@@ -82,5 +84,12 @@ export class ProductsService implements ProductsServiceInterface {
     const currentUsersProducts: Product[] = [...this.getCurrentUsersProducts].filter((product: Product) => product._id != removedProduct._id);
 
     this._currentUsersProducts.next(currentUsersProducts);
+  }
+
+  public getAllCategories(): Observable<Category[]> {
+    return this.http
+      .get<Category[]>(this.categoriesEndpoint).pipe(
+        first(),
+      );
   }
 }

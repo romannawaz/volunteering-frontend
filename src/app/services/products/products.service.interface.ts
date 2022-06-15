@@ -1,6 +1,7 @@
 import { Observable } from "rxjs";
 
 import { Product } from "./product.interface";
+import { Category } from "./category.interface";
 
 export interface ProductsServiceInterface {
     readonly $currentUsersProducts: Observable<Product[]>;
@@ -17,4 +18,6 @@ export interface ProductsServiceInterface {
 
     replaceProduct(newProduct: Product): void;
     removeProduct(removedProduct: Product): void;
+
+    getAllCategories(): Observable<Category[]>
 }

@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
 
@@ -8,10 +8,18 @@ import { ProductModel } from 'src/app/services/products/models/product.model';
 
 // Interfaces
 import { Product } from 'src/app/services/products/product.interface';
+import { Category } from 'src/app/services/products/category.interface';
 
 // Services
 import { AuthServiceInterface } from 'src/app/services/auth/auth.service.interface';
 import { ProductsServiceInterface } from 'src/app/services/products/products.service.interface';
+
+interface Controls {
+  title: FormControl;
+  description: FormControl;
+  price: FormControl;
+  categories: FormGroup;
+}
 
 @Component({
   selector: 'create-product-form',
@@ -27,7 +35,9 @@ export class CreateProductFormComponent implements OnInit, OnChanges, OnDestroy 
 
   public productForm!: FormGroup;
 
-  public controls!: { [key: string]: AbstractControl };
+  public controls!: Controls;
+
+  public categories: Category[] = [];
 
   public isResponseLoading: boolean = false;
 
@@ -43,10 +53,24 @@ export class CreateProductFormComponent implements OnInit, OnChanges, OnDestroy 
     this.productForm = this._createProductForm();
 
     this.controls = {
-      title: this.productForm.controls['title'],
-      description: this.productForm.controls['description'],
-      price: this.productForm.controls['price'],
-    }
+      title: this.productForm.controls['title'] as FormControl,
+      description: this.productForm.controls['description'] as FormControl,
+      price: this.productForm.controls['price'] as FormControl,
+      categories: this.productForm.controls['categories'] as FormGroup,
+    };
+
+    this._subscription.add(
+      this.productsService.getAllCategories()
+        .subscribe((categories: Category[]) => {
+          this.categories = [...categories];
+
+          this.categories.forEach(({ name }) => {
+            if (name in this.controls.categories.controls) return;
+
+            this.controls.categories.addControl(name, this.formBuilder.control(false))
+          })
+        })
+    );
   }
 
   ngOnChanges(): void {
@@ -65,40 +89,41 @@ export class CreateProductFormComponent implements OnInit, OnChanges, OnDestroy 
   }
 
   public createProduct(): void {
-    if (!this.productForm.valid) return;
+    console.log(this.controls.categories.value);
+    // if (!this.productForm.valid) return;
 
-    this.isResponseLoading = true;
+    // this.isResponseLoading = true;
 
-    const { title, description, price } = this.productForm.value;
+    // const { title, description, price } = this.productForm.value;
 
-    const newProduct: Product = new ProductModel(title, description, price, this.authService.user!._id);
+    // const newProduct: Product = new ProductModel(title, description, price, this.authService.user!._id);
 
-    if (this.editStatus) {
-      this._subscription.add(
-        this.productsService.updateProduct(this.editableProduct!._id!, newProduct)
-          .subscribe(
-            () => {
-              this.productsService.replaceProduct(Object.assign({ id: this.editableProduct!._id }, newProduct));
+    // if (this.editStatus) {
+    //   this._subscription.add(
+    //     this.productsService.updateProduct(this.editableProduct!._id!, newProduct)
+    //       .subscribe(
+    //         () => {
+    //           this.productsService.replaceProduct(Object.assign({ id: this.editableProduct!._id }, newProduct));
 
-              this.productForm.reset();
-              this.isResponseLoading = false;
-            }
-          )
-      );
-    }
-    else {
-      this._subscription.add(
-        this.productsService.createProduct(newProduct)
-          .subscribe(
-            (product: Product) => {
-              this.productsService.currentUsersProducts = product;
+    //           this.productForm.reset();
+    //           this.isResponseLoading = false;
+    //         }
+    //       )
+    //   );
+    // }
+    // else {
+    //   this._subscription.add(
+    //     this.productsService.createProduct(newProduct)
+    //       .subscribe(
+    //         (product: Product) => {
+    //           this.productsService.currentUsersProducts = product;
 
-              this.productForm.reset();
-              this.isResponseLoading = false;
-            }
-          )
-      );
-    }
+    //           this.productForm.reset();
+    //           this.isResponseLoading = false;
+    //         }
+    //       )
+    //   );
+    // }
 
   }
 
@@ -107,6 +132,7 @@ export class CreateProductFormComponent implements OnInit, OnChanges, OnDestroy 
       title: [''],
       description: [''],
       price: [''],
+      categories: this.formBuilder.group({}),
     });
   }
 

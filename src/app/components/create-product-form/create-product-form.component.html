@@ -9,6 +9,13 @@
         <input type="text" class="form__element" formControlName="price" placeholder="Price" required />
     </div>
 
+    <ng-container *ngIf="categories">
+        <div *ngFor="let category of categories" [formGroup]="controls.categories">
+            <input type="checkbox" [value]="category.name" [id]="category.name" [formControlName]="category.name">
+            <label [for]="category.name">{{ category.name }}</label>
+        </div>
+    </ng-container>
+
     <button type="submit" class="form__element" [ngClass]="{ 'is-loading': isResponseLoading }">
         {{ editStatus ? 'Save changes' : 'Create' }}
     </button>
