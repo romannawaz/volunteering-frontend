@@ -1,7 +1,10 @@
 export interface Product {
     title: string;
     description: string;
-    price: number;
+    amount: number;
+    collected: number;
+    region: string;
+    date: Date;
     user_id: string;
     _id?: string;
 }

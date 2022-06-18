@@ -45,7 +45,9 @@ export class CreateProductFormComponent implements OnInit, OnChanges, OnDestroy 
     this.controls = {
       title: this.productForm.controls['title'],
       description: this.productForm.controls['description'],
-      price: this.productForm.controls['price'],
+      amount: this.productForm.controls['amount'],
+      collected: this.productForm.controls['collected'],
+      region: this.productForm.controls['region'],
     }
   }
 
@@ -69,9 +71,22 @@ export class CreateProductFormComponent implements OnInit, OnChanges, OnDestroy 
 
     this.isResponseLoading = true;
 
-    const { title, description, price } = this.productForm.value;
+    const {
+      title,
+      description,
+      amount,
+      collected,
+      region,
+    } = this.productForm.value;
 
-    const newProduct: Product = new ProductModel(title, description, price, this.authService.user!._id);
+    const newProduct: Product = new ProductModel(
+      title,
+      description,
+      amount,
+      collected,
+      region,
+      this.authService.user!._id!
+    );
 
     if (this.editStatus) {
       this._subscription.add(
@@ -106,7 +121,9 @@ export class CreateProductFormComponent implements OnInit, OnChanges, OnDestroy 
     return this.formBuilder.group({
       title: [''],
       description: [''],
-      price: [''],
+      amount: [''],
+      collected: [''],
+      region: [''],
     });
   }
 

@@ -6,14 +6,14 @@
             <tr>
                 <th>Title</th>
                 <th>Description</th>
-                <th>Price</th>
+                <th>Amount</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
             <tr *ngFor="let product of productsService.$currentUsersProducts | async">
                 <td>{{ product.title }}</td>
                 <td>{{ product.description }}</td>
-                <td>{{ product.price }}</td>
+                <td>{{ product.amount }}</td>
                 <td>
                     <button type="button" class="button color-warning" (click)="editProduct(product)">Edit</button>
                 </td>
