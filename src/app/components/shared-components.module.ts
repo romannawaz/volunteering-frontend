@@ -7,11 +7,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CreateProductFormComponent } from './create-product-form/create-product-form.component';
 import { HeaderComponent } from './header/header.component';
 import { ProductPreviewComponent } from './product-preview/product-preview.component';
+import { FooterComponent } from './footer/footer.component';
 
 const components = [
   CreateProductFormComponent,
   HeaderComponent,
   ProductPreviewComponent,
+  FooterComponent,
 ];
 
 @NgModule({

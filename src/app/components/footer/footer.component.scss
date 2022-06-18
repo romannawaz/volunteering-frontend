@@ -1,0 +1,37 @@
+.footer {
+    display: flex;
+    height: 195px;
+
+    padding: 40px 50px;
+
+    background-color: #000;
+}
+
+.logo {
+    align-self: center;
+
+    margin-right: 125px;
+
+    font-size: 51px;
+    font-weight: bold;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+
+    &:not(:last-of-type) {
+        margin-right: 45px;
+    }
+
+    &__item {
+        text-decoration: none;
+
+        font-size: 18px;
+        color: #ddd;
+
+        &:not(:last-of-type) {
+            margin-bottom: 10px;
+        }
+    }
+}
