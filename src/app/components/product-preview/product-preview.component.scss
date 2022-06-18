@@ -1,31 +1,102 @@
 .product-preview {
+    display: flex;
+    align-items: center;
+
     width: 100%;
+    height: 100%;
+
+    padding: 10px;
     
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    overflow: hidden;
+    background-color: #e1e1e1;
+    border-radius: 10px;
 
-    &__image {
-        height: 180px;
+    .product-preview__info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+
         width: 100%;
+        height: 100%;
 
-        background-color: #dbdbdb;
+        padding: 5px;
     }
 
-    &__content {
-        padding: 10px;
+    &__image {
+        height: 128px;
+        width: 207px;
+
+        margin-right: 10px;
+
+        background-color: #8a8a8a;
+
+        border-radius: 6px;
     }
 
     &__title {
+        margin-top: 5px;
+
+        font-size: 18px;
+        color: black;
+    }
+
+    &__progress {
+        .progress__line {
+            position: relative;
+
+            margin-bottom: 10px;
+
+            width: 100%;
+            height: 4px;
+
+            background-color: #fff;
+
+            &:before {
+                content: "";
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+
+                width: var(--progress);
+
+                background-color: #000;
+            }
+        }
+
+        .progress__info {
+            font-weight: 600;
+
+            .collected {
+                font-size: 24px;
+                color: #000;
+            }
+            .necessary {
+                margin-left: -2px;
+
+                font-size: 16px;
+                color: #00000099;
+            }
+        }
+    }
+
+    &__region {
+        display: flex;
+        align-items: flex-end;
+
         margin-bottom: 5px;
+
+        font-size: 16px;
+        color: #00000099;
     }
 
-    &__description {
-        margin-bottom: 20px;
-    }
+    &__help_button {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
 
-    &__price,
-    &__user_name {
-        text-align: right;
+        button {
+            width: auto;
+        }
     }
 }

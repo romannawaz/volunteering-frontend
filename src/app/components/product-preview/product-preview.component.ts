@@ -43,4 +43,9 @@ export class ProductPreviewComponent implements OnInit, OnDestroy {
     this._subscription.unsubscribe();
   }
 
+  public percentOfCollected(): string {
+    const { amount, collected } = this.product;
+    
+    return (collected / amount * 100).toFixed(2);
+  }
 }

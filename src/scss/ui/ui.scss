@@ -3,6 +3,20 @@
     margin: 40px auto 0;
 }
 
+.button {
+    padding: 10px;
+
+    font-size: 18px;
+    color: #ddd;
+
+    border: none;
+    border-radius: 6px;
+
+    &.button_dark {
+        background-color: #000;
+    }
+}
+
 .is-loading {
     display: inline-flex;
     align-items: center;
