@@ -1,17 +1,23 @@
 <header class="header">
-  <h1 class="header__title" [routerLink]="['home']">Volunteering</h1>
+  <h1 class="header__title" [routerLink]="['home']">Dii</h1>
 
   <div class="header__buttons">
-    <button type="button" *ngIf="!(authService.userObservable | async)" class="auth-button"
-      (click)="toSignUpPage()">
-      Sign Up
+    <button type="button" class="button_white">
+      Допомогти
     </button>
-    <button type="button" *ngIf="authService.userObservable | async" class="auth-button" (click)="toUserCabinet()">
-      User Cabinet
+
+    <button type="button" *ngIf="authService.userObservable | async" class="profile_button" (click)="toUserCabinet()">
+      <span class="profile_button__label">Профіль</span>
+      <div class="profile_button__icon">
+        <i class="fa-solid fa-user"></i>
+      </div>
     </button>
-    <button type="button" *ngIf="authService.userObservable | async" class="auth-button"
-      (click)="authService.logOut()">
-      Log out
+
+    <button type="button" *ngIf="!(authService.userObservable | async)" class="profile_button" (click)="toUserCabinet()">
+      <span class="profile_button__label">Увійти</span>
+      <div class="profile_button__icon">
+        <i class="fa-solid fa-user"></i>
+      </div>
     </button>
   </div>
 </header>

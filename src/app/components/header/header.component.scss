@@ -1,28 +1,75 @@
-header.header {
+.header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     width: 100%;
-    padding: 20px 35px;
+    padding: 14px 45px;
 
-    background-color: var(--header-bg-color);
+    background-color: #000;
+
+    button {
+        cursor: pointer;
+
+        height: 43px;
+
+        font-size: 18px;
+        color: #ddd;
+
+        border: none;
+    }
 }
 
 .header__title {
     cursor: pointer;
+
+    font-size: 51px;
 }
 
 .header__buttons {
+    display: flex;
+    flex-direction: row;
+
     > *:not(:last-of-type) {
-        margin-right: 10px;
+        margin-right: 15px;
     }
-}
 
-.auth-button {
-    padding: 10px 15px;
+    .profile_button {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 5px;
 
-    color: var(--text-color);
-    background-color: var(--primary);
+        background: transparent;
 
-    border-radius: 5px;
+        &__label {
+            padding: 10px;
+        }
+
+        &__icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: 35px;
+            height: 35px;
+
+            background-color: #ddd;
+            border-radius: 50%;
+
+            i {
+                font-size: 20px;
+                color: #000;
+            }
+        }
+    }
+
+    .button_white {
+        padding: 10px 11px;
+
+        color: #0c2335;
+
+        background-color: #ddd;
+        border-radius: 6px;
+    }
 }
