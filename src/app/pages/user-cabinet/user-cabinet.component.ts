@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { AuthServiceInterface } from 'src/app/services/auth/auth.service.interface';
 
 @Component({
   selector: 'app-user-cabinet',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserCabinetComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    @Inject('AuthServiceInterface')
+    public authService: AuthServiceInterface
+  ) { }
 
   ngOnInit(): void {
   }

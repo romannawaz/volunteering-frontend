@@ -3,6 +3,7 @@
         <nav class="navigation">
             <a [routerLink]="['user-profile']" routerLinkActive="active" class="navigation__item">Profile</a>
             <a [routerLink]="['products']" routerLinkActive="active" class="navigation__item">Products</a>
+            <button class="button button_dark" (click)="authService.logOut()">Log out</button>
         </nav>
 
         <div class="page">
