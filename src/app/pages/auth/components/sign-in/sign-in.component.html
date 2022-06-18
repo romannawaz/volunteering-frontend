@@ -1,15 +1,24 @@
-<form class="form" [formGroup]="signInForm" (ngSubmit)="signIn()">
-    <div class="form-field">
-        <input type="text" class="form__element" formControlName="email" placeholder="First name">
+<div class="form__wrapper">
+    <div class="tabs">
+        <div class="tab" [routerLink]="['/auth/sign-in']" routerLinkActive="active">
+            Вхід
+        </div>
+        <div class="tab" [routerLink]="['/auth/sign-up']" routerLinkActive="active">
+            Реєстрація
+        </div>
     </div>
 
-    <div class="form-field">
-        <input type="password" class="form__element" formControlName="password" placeholder="Password">
-    </div>
+    <form class="form" [formGroup]="signInForm" (ngSubmit)="signIn()">
+        <h2 class="form__title">Ваш профіль</h2>
 
-    <button type="submit" class="form__element">Submit</button>
+        <div class="form-field">
+            <input type="text" class="form__element" formControlName="email" placeholder="First name">
+        </div>
 
-    <div class="form-field">
-        Don't have account? <a [routerLink]="['/auth/sign-up']">Sign Up</a>
-    </div>
-</form>
+        <div class="form-field">
+            <input type="password" class="form__element" formControlName="password" placeholder="Password">
+        </div>
+
+        <button type="submit" class="form__element">Увійти</button>
+    </form>
+</div>
