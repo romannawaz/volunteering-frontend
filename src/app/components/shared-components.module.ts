@@ -9,6 +9,7 @@ import { HeaderComponent } from './header/header.component';
 import { ProductPreviewComponent } from './product-preview/product-preview.component';
 import { FooterComponent } from './footer/footer.component';
 import { DonateProgressBarComponent } from './donate-progress-bar/donate-progress-bar.component';
+import { SearchComponent } from './search/search.component';
 
 const components = [
   CreateProductFormComponent,
@@ -16,6 +17,7 @@ const components = [
   ProductPreviewComponent,
   FooterComponent,
   DonateProgressBarComponent,
+  SearchComponent,
 ];
 
 @NgModule({

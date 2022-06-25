@@ -1,0 +1,50 @@
+.wrapper {
+    margin-bottom: 65px;
+}
+
+.title {
+    margin-bottom: 36px;
+
+    width: 60%;
+
+    color: #000;
+    font-size: 16px;
+}
+
+.search {
+    display: grid;
+    grid-template-columns: 74% 13% 13%;
+    gap: 20px;
+
+    > .search-field > input,
+    button {
+        padding: 20px 25px;
+        border-radius: 13px;
+    }
+
+    .search-field > input {
+        width: 100%;
+
+        border: none;
+        outline: none;
+
+        background-color: #ececec;
+
+        font-size: 16px;
+        font-weight: 100;
+
+        &::placeholder {
+            font-size: 16px;
+            font-weight: 100;
+        }
+    }
+
+    > button {
+        display: flex;
+        align-items: center;
+
+        > i {
+            padding: 0 20px;
+        }
+    }
+}
