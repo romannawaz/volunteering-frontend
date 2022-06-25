@@ -19,8 +19,8 @@
                     <div class="info">
                         <div class="info__title">Реквізити для донатів</div>
                         <div class="info__content">
-                            2288 6969 1313 0612
-                            <button type="button" ngxClipboard [cbContent]="'2288 6969 1313 0612'">
+                            {{ user.cardNumber }}
+                            <button type="button" ngxClipboard [cbContent]="user.cardNumber.toString()">
                                 <i class="fa-solid fa-copy"></i>
                             </button>
                         </div>
@@ -28,8 +28,8 @@
                     <div class="info">
                         <div class="info__title">Номер телефону</div>
                         <div class="info__content">
-                            {{ user.email }}
-                            <button type="button" ngxClipboard [cbContent]="user.email">
+                            {{ user.phone }}
+                            <button type="button" ngxClipboard [cbContent]="user.phone.toString()">
                                 <i class="fa-solid fa-copy"></i>
                             </button>
                         </div>
