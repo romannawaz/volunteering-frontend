@@ -1,5 +1,7 @@
 <div class="wrapper">
-    <create-product-form [editableProduct]="editableProduct"></create-product-form>
+    <div class="create-product-form">
+        <create-product-form [editableProduct]="editableProduct"></create-product-form>
+    </div>
 
     <div class="table__wrapper">
         <table *ngIf="(productsService.$currentUsersProducts | async)?.length">

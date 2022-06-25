@@ -1,7 +1,14 @@
 .wrapper {
     display: flex;
-    justify-content: space-between;
-    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.create-product-form {
+    width: calc(50% - 10px);
+}
+
+.table__wrapper {
+    margin-top: 35px;
 }
 
 .table__wrapper,
@@ -20,4 +27,8 @@ td {
     padding: 10px 15px;
 
     border: 1px solid black;
+}
+
+td{
+    vertical-align: top;
 }
