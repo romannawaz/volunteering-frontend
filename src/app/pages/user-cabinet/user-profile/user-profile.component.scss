@@ -1,7 +1,7 @@
 .wrapper {
-    display: flex;
-    justify-content: space-between;
-    gap: 25px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
 
     > .form__wrapper {
         width: 100%;

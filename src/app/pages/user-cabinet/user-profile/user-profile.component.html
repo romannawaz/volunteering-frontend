@@ -1,8 +1,8 @@
 <div class="wrapper">
     <div class="form__wrapper">
-        <h2 class="form__label">User info</h2>
-
         <form class="form user_form" [formGroup]="userForm" (ngSubmit)="updateUser()">
+            <h2 class="form__title">User info</h2>
+
             <div class="form-field">
                 <input type="text" class="form__element" formControlName="first_name" placeholder="First name" required>
             </div>
@@ -15,14 +15,14 @@
                 <input type="text" class="form__element" formControlName="email" placeholder="Email" required>
             </div>
 
-            <button type="submit" class="form__element" *ngIf="userForm.touched">Submit</button>
+            <button type="submit" class="form__element">Submit</button>
         </form>
     </div>
 
     <div class="form__wrapper">
-        <h2 class="form__label">Change password</h2>
-
         <form class="form change_password_form" [formGroup]="changePasswordForm" (ngSubmit)="updatePassword()">
+            <h2 class="form__title">Change password</h2>
+
             <div class="form-field">
                 <input type="password" class="form__element" formControlName="current_password"
                     placeholder="Current password" required>
@@ -37,14 +37,14 @@
                     placeholder="Repeat password" required>
             </div>
 
-            <button type="submit" class="form__element" *ngIf="changePasswordForm.touched">Submit</button>
+            <button type="submit" class="form__element">Submit</button>
         </form>
     </div>
 
     <div class="form__wrapper">
-        <h2 class="form__label">Contacts</h2>
-
         <form class="form contacts_form" [formGroup]="contactsForm" (ngSubmit)="updateContacts()">
+            <h2 class="form__title">Contacts</h2>
+
             <ng-container formArrayName="contacts">
                 <div class="form-field" *ngFor="let contact of contacts.controls; index as i">
                     <input type="text" class="form__element" [formControl]="getContactFieldByIndex(i)"
@@ -53,7 +53,7 @@
             </ng-container>
 
             <button type="button" class="form__element" (click)="addNewContactField()">Add new contact</button>
-            <button type="submit" class="form__element" *ngIf="contactsForm.touched">Submit</button>
+            <button type="submit" class="form__element">Submit</button>
         </form>
     </div>
 </div>
