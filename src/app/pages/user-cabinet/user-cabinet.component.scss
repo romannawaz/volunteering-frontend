@@ -12,14 +12,20 @@
 
         padding: 10px;
 
-        color: var(--text-color);
+        color: #000;
         text-decoration: none;
 
         border-radius: 3px;
 
         &.active {
+            color: #fff;
+
             background-color: darken(#4e4e4e, 5%);
         }
+    }
+
+    > button {
+        margin-top: 50px;
     }
 }
 
