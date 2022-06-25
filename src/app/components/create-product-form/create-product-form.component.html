@@ -1,21 +1,29 @@
-<form class="form" [formGroup]="productForm" (ngSubmit)="createProduct()">
-    <div class="form-field">
-        <input type="text" class="form__element" formControlName="title" placeholder="Назва" required />
-    </div>
-    <div class="form-field">
-        <textarea type="text" class="form__element" formControlName="description" placeholder="Опис продукту"></textarea>
-    </div>
-    <div class="form-field">
-        <input type="text" class="form__element" formControlName="amount" placeholder="Скільки усього необхідно коштів?" required />
-    </div>
-    <div class="form-field">
-        <input type="text" class="form__element" formControlName="collected" placeholder="Скільки уже зібрано коштів?" required />
-    </div>
-    <div class="form-field">
-        <input type="text" class="form__element" formControlName="region" placeholder="Введіть ваш регіон" required />
-    </div>
+<div class="form__wrapper">
+    <form class="form" [formGroup]="productForm" (ngSubmit)="createProduct()">
+        <h2 class="form__title"> {{ editStatus ? 'Редагувати' : 'Створити' }} продукт</h2>
 
-    <button type="submit" class="form__element" [ngClass]="{ 'is-loading': isResponseLoading }">
-        {{ editStatus ? 'Save changes' : 'Create' }}
-    </button>
-</form>
+        <div class="form-field">
+            <input type="text" class="form__element" formControlName="title" placeholder="Назва" required />
+        </div>
+        <div class="form-field">
+            <textarea type="text" class="form__element" formControlName="description"
+                placeholder="Опис продукту"></textarea>
+        </div>
+        <div class="form-field">
+            <input type="text" class="form__element" formControlName="amount"
+                placeholder="Скільки усього необхідно коштів?" required />
+        </div>
+        <div class="form-field">
+            <input type="text" class="form__element" formControlName="collected"
+                placeholder="Скільки уже зібрано коштів?" required />
+        </div>
+        <div class="form-field">
+            <input type="text" class="form__element" formControlName="region" placeholder="Введіть ваш регіон"
+                required />
+        </div>
+
+        <button type="submit" class="form__element" [ngClass]="{ 'is-loading': isResponseLoading }">
+            {{ editStatus ? 'Зберегти зміни' : 'Створити' }}
+        </button>
+    </form>
+</div>
