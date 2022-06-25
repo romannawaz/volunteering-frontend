@@ -109,11 +109,11 @@ export class AuthService implements AuthServiceInterface {
     );
   }
 
-  public updateContacts(userId: string, contacts: string[]) {
+  public updateContacts(userId: string, phone: number, cardNumber: number) {
     const updateUserContactsUrl: string = `${this.windowService.endpointApi()}/auth/contacts/${userId}`;
 
     return this.http
-      .post(updateUserContactsUrl, { contacts });
+      .post(updateUserContactsUrl, { phone, cardNumber });
   }
 
   public saveToken(token: string): void {

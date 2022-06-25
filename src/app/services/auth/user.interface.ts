@@ -8,7 +8,8 @@ export interface UserRegistrationData {
     last_name: string;
     email: string;
     password: string;
-    contacts: string[];
+    phone: number;
+    cardNumber: number;
 }
 
 export type User = Omit<UserRegistrationData, 'password'> & { _id: string };

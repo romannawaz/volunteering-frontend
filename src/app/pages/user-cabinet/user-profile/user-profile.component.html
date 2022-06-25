@@ -45,14 +45,15 @@
         <form class="form contacts_form" [formGroup]="contactsForm" (ngSubmit)="updateContacts()">
             <h2 class="form__title">Contacts</h2>
 
-            <ng-container formArrayName="contacts">
-                <div class="form-field" *ngFor="let contact of contacts.controls; index as i">
-                    <input type="text" class="form__element" [formControl]="getContactFieldByIndex(i)"
-                        placeholder="Contact" required>
-                </div>
-            </ng-container>
+            <div class="form-field">
+                <input type="text" class="form__element" formControlName="phone" placeholder="000 000 00 00" required>
+            </div>
 
-            <button type="button" class="form__element" (click)="addNewContactField()">Add new contact</button>
+            <div class="form-field">
+                <input type="text" class="form__element" formControlName="cardNumber" placeholder="0000 0000 0000 0000"
+                    required>
+            </div>
+
             <button type="submit" class="form__element">Submit</button>
         </form>
     </div>
