@@ -1,29 +1,38 @@
 <div class="container">
     <div class="product" *ngIf="isReady">
-        <div class="product__content">
-            <div class="product__img"></div>
-            <div class="product__title">
-                {{ product.title }}
-            </div>
-            <div class="product__description">
-                {{ product.description }}
-            </div>
-            <div class="product__price">
-                {{ product.amount }}₴
-            </div>
+        <h2 class="product__title">
+            {{ product.title }}
+        </h2>
+        <div class="product__description">
+            {{ product.description }}
         </div>
-        <div class="product__user_info">
-            <div class="product__user_name">
-                {{ user.first_name }} {{ user.last_name }}
+
+        <div class="d-flex justify-content-between product__content">
+            <div class="product__image">
+                <img src="https://velmet.ua/image/cache/catalog/images/products/49-sredstva-zasshity/bronejilety-skrytogo-noshenija/bronezhilet-s-myagkoj-ballisticheskoj-zashchitoj-veles-hv-pro-tip-a-black-940x1000.jpg" alt="">
             </div>
-            <div class="product__user_contacts">
-                Contacts:
-                <div class="contacts_wrapper">
-                    <div class="contact">
-                        {{ user.email }}
+            <div class="product__info">
+                <donate-progress-bar [collected]="product.collected" [amount]="product.amount"></donate-progress-bar>
+                <button type="button" class="button button_dark">Допомогти</button>
+
+                <div class="d-flex justify-content-between">
+                    <div class="info">
+                        <div class="info__title">Реквізити для донатів</div>
+                        <div class="info__content">
+                            2288 6969 1313 0612
+                            <button type="button" ngxClipboard [cbContent]="'2288 6969 1313 0612'">
+                                <i class="fa-solid fa-copy"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div class="contact" *ngFor="let contact of user.contacts">
-                        {{ contact }}
+                    <div class="info">
+                        <div class="info__title">Номер телефону</div>
+                        <div class="info__content">
+                            {{ user.email }}
+                            <button type="button" ngxClipboard [cbContent]="user.email">
+                                <i class="fa-solid fa-copy"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
