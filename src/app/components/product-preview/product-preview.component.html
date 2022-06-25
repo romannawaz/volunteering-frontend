@@ -3,13 +3,7 @@
 
     <div class="product-preview__info">
         <div class="product-preview__title">{{ product.title }}</div>
-        <div class="product-preview__progress">
-            <div class="progress__line" style="--progress:{{percentOfCollected()}}%"></div>
-            <div class="progress__info">
-                <span class="collected">₴{{ product.collected }}/</span><span class="necessary">{{
-                    product.amount}}</span>
-            </div>
-        </div>
+        <donate-progress-bar [collected]="product.collected" [amount]="product.amount"></donate-progress-bar>
         <div class="product-preview__region">{{ product.region }} {{ product.date | date:'MM.d.yy' }}</div>
         <div class="product-preview__help_button">
             <button type="button" class="button button_dark" [routerLink]="[ '/product', product._id ]">

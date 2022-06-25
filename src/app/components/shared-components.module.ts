@@ -8,12 +8,14 @@ import { CreateProductFormComponent } from './create-product-form/create-product
 import { HeaderComponent } from './header/header.component';
 import { ProductPreviewComponent } from './product-preview/product-preview.component';
 import { FooterComponent } from './footer/footer.component';
+import { DonateProgressBarComponent } from './donate-progress-bar/donate-progress-bar.component';
 
 const components = [
   CreateProductFormComponent,
   HeaderComponent,
   ProductPreviewComponent,
   FooterComponent,
+  DonateProgressBarComponent,
 ];
 
 @NgModule({

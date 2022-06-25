@@ -1,0 +1,41 @@
+.progress {
+    .progress__line {
+        position: relative;
+
+        margin-bottom: 10px;
+
+        width: 100%;
+        height: 4px;
+
+        background-color: #fff;
+
+        &:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+
+            width: var(--progress);
+
+            background-color: #000;
+        }
+    }
+
+    .progress__info {
+        font-weight: 600;
+
+        .collected {
+            font-size: 24px;
+            color: #000;
+        }
+
+        .amount {
+            margin-left: -2px;
+
+            font-size: 16px;
+            color: #00000099;
+        }
+    }
+}
