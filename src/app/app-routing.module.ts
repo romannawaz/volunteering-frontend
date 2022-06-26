@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 // Guards
-import { HomeGuard } from './guards/home.guard';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./pages/home/home.module')
       .then(module => module.HomeModule),
-    canActivate: [HomeGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'auth',
@@ -20,6 +20,7 @@ const routes: Routes = [
     path: 'user-cabinet',
     loadChildren: () => import('./pages/user-cabinet/user-cabinet.module')
       .then(module => module.UserCabinetModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'product/:id',
