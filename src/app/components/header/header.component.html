@@ -13,7 +13,7 @@
       </div>
     </button>
 
-    <button type="button" *ngIf="!(authService.userObservable | async)" class="profile_button" (click)="toUserCabinet()">
+    <button type="button" *ngIf="!(authService.userObservable | async)" class="profile_button" (click)="toSignUpPage()">
       <span class="profile_button__label">Увійти</span>
       <div class="profile_button__icon">
         <i class="fa-solid fa-user"></i>
