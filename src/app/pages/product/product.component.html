@@ -11,7 +11,7 @@
 
         <div class="d-flex justify-content-between product__content">
             <div class="product__image">
-                <img src="https://velmet.ua/image/cache/catalog/images/products/49-sredstva-zasshity/bronejilety-skrytogo-noshenija/bronezhilet-s-myagkoj-ballisticheskoj-zashchitoj-veles-hv-pro-tip-a-black-940x1000.jpg" alt="">
+                <img src="../../../assets/images/fullsize/armor.png" alt="">
             </div>
             <div class="product__info">
                 <donate-progress-bar [collected]="product.collected" [amount]="product.amount"></donate-progress-bar>
@@ -21,19 +21,29 @@
                     <div class="info">
                         <div class="info__title">Реквізити для донатів</div>
                         <div class="info__content">
-                            {{ user.cardNumber }}
-                            <button type="button" ngxClipboard [cbContent]="user.cardNumber.toString()">
-                                <i class="fa-solid fa-copy"></i>
-                            </button>
+                            <ng-container *ngIf="user.cardNumber; else cardNumberElseTemplate">
+                                {{ user.cardNumber }}
+                                <button type="button" ngxClipboard [cbContent]="user.cardNumber.toString()">
+                                    <i class="fa-solid fa-copy"></i>
+                                </button>
+                            </ng-container>
+                            <ng-template #cardNumberElseTemplate>
+                                Нажаль реквізити відсутні.
+                            </ng-template>
                         </div>
                     </div>
                     <div class="info">
                         <div class="info__title">Номер телефону</div>
                         <div class="info__content">
-                            {{ user.phone }}
-                            <button type="button" ngxClipboard [cbContent]="user.phone.toString()">
-                                <i class="fa-solid fa-copy"></i>
-                            </button>
+                            <ng-container *ngIf="user.phone; else phoneElseTemplate">
+                                {{ user.phone }}
+                                <button type="button" ngxClipboard [cbContent]="user.phone.toString()">
+                                    <i class="fa-solid fa-copy"></i>
+                                </button>
+                            </ng-container>
+                            <ng-template #phoneElseTemplate>
+                                Нажаль номер телефону відсутній.
+                            </ng-template>
                         </div>
                     </div>
                 </div>
